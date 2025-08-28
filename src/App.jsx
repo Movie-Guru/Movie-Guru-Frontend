@@ -5,11 +5,6 @@ import Header from './components/Header.jsx'
 import Interaction from './components/Interaction.jsx'
 
 function App() {
-  
-  useEffect(() => {
-    
-  }, [])
-
   return (
     <>
       <Header />

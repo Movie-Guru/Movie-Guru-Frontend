@@ -1,7 +1,10 @@
 const RecommendationOutput = ({recommendationString}) => {
+    const styleObject = {
+        whiteSpace: "pre-line",
+    }
     return (
         <>
-            <p>{recommendationString}</p>
+            <p style={styleObject}>{recommendationString}</p>
         </>
     )
 }

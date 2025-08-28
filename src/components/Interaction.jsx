@@ -10,18 +10,23 @@ const Interaction = () => {
     const handleSubmit = async event => {
         event.preventDefault()
 
+        // If the user did not enter anything, don't generate recommendation
+        if (userQuery === "") {
+            return
+        }
+
+        setIsLoading(true)
         try {
             const recommendationResponse = await axios.post(
                 `${import.meta.env.VITE_BACKEND_URL}/recommend`,
                 {user_query: userQuery}
             )
-            console.log("The recommendation received was: ", recommendationResponse.data)
             setRecommendationString(recommendationResponse.data.recommendation)
-            console.log("This is the value of the state variable: ", recommendationString)
         } catch (error) {
             console.error("Unexpected error", error)
             setRecommendationString("An unexpected error has occurred. Please try again later.")
         }
+        setIsLoading(false)
     }
 
     return (
@@ -32,7 +37,9 @@ const Interaction = () => {
                 }}/>
                 <button type="Submit" disabled={isLoading}>Ask</button>
             </form>
-            <RecommendationOutput recommendationString={recommendationString} />
+            {isLoading ?
+            <div>Generating movie recommendations...</div> :
+            <RecommendationOutput recommendationString={recommendationString} />}
         </>
     )
 }
